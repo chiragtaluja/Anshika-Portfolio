@@ -4,74 +4,142 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Anshika · Content Creator</title>
-    <!-- Google Fonts: Poppins (all weights) & Font Awesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
-        /* ----- global reset & poppins ----- */
+        /* ========== RESET ========== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: #080b10;
-            color: #eef2f8;
+        html {
             scroll-behavior: smooth;
-            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fafaf8;
+            color: #111111;
+            line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* ----- blue/black sleek theme with subtle blue glow ----- */
+        /* ========== THEME ========== */
         :root {
-            --bg-primary: #080b10;
-            --bg-card: #11171f;
-            --bg-card-hover: #19222e;
-            --border-glow: #1f8eff;
-            --blue-accent: #1f8eff;
-            --blue-soft: #3b9aff;
-            --blue-glow: rgba(31, 142, 255, 0.15);
-            --text-primary: #f0f5ff;
-            --text-secondary: #b6c8e5;
-            --text-muted: #7b8db0;
+            --bg: #fafaf8;
+            --bg-soft: #f2f2ef;
+            --bg-card: #ffffff;
+            --ink: #111111;
+            --ink-soft: #4a4a4a;
+            --ink-muted: #8a8a8a;
+            --ink-faint: #b5b5b5;
+            --line: #e4e4e0;
+            --line-strong: #111111;
+            --accent: #111111;
+        }
+
+        ::selection {
+            background: #111111;
+            color: #ffffff;
         }
 
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 6px;
         }
         ::-webkit-scrollbar-track {
-            background: #0e121a;
+            background: #fafaf8;
         }
         ::-webkit-scrollbar-thumb {
-            background: #1f8eff;
-            border-radius: 20px;
+            background: #c8c8c4;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #111111;
         }
 
         a {
             text-decoration: none;
             color: inherit;
         }
+
         .container {
             max-width: 1280px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 2.5rem;
         }
 
-        /* ----- header / nav with smooth transitions ----- */
+        /* ========== TYPOGRAPHY ========== */
+        .font-display {
+            font-family: 'Fraunces', serif;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+        }
+
+        .section-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--ink-muted);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-label::before {
+            content: '';
+            display: inline-block;
+            width: 32px;
+            height: 1px;
+            background: var(--ink);
+        }
+
+        .section-title {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(2.2rem, 4vw, 3.4rem);
+            font-weight: 400;
+            letter-spacing: -0.03em;
+            color: var(--ink);
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .section-desc {
+            color: var(--ink-soft);
+            font-size: 1rem;
+            font-weight: 400;
+            max-width: 520px;
+            margin-bottom: 4rem;
+            line-height: 1.7;
+        }
+
+        /* ========== HEADER ========== */
         header {
-            padding: 1.2rem 0;
-            background: rgba(8, 11, 16, 0.8);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(31, 142, 255, 0.1);
-            position: sticky;
+            position: fixed;
             top: 0;
-            z-index: 100;
-            transition: all 0.3s ease;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.6rem 0;
+            background: rgba(250, 250, 248, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid transparent;
+            transition: all 0.4s ease;
+        }
+
+        header.scrolled {
+            padding: 1.1rem 0;
+            background: rgba(250, 250, 248, 0.95);
+            border-bottom: 1px solid var(--line);
         }
 
         .nav {
@@ -81,88 +149,83 @@
         }
 
         .logo {
-            font-size: 1.9rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            background: linear-gradient(135deg, #ffffff 20%, #1f8eff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Fraunces', serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: -0.03em;
+            color: var(--ink);
+            display: flex;
+            align-items: baseline;
+            gap: 0.1rem;
         }
-        .logo span {
-            font-weight: 300;
-            color: #b6c8e5;
-            -webkit-text-fill-color: #b6c8e5;
+
+        .logo .dot {
+            font-size: 1.5rem;
+            color: var(--ink);
+            line-height: 1;
         }
 
         .nav-links {
             display: flex;
-            gap: 2.8rem;
-            font-weight: 500;
-            font-size: 0.95rem;
-            font-family: 'Poppins', sans-serif;
+            gap: 2.4rem;
+            align-items: center;
         }
 
         .nav-links a {
-            color: var(--text-secondary);
-            transition: color 0.3s ease, transform 0.2s ease;
+            font-family: 'Inter', sans-serif;
+            color: var(--ink-soft);
+            font-size: 0.82rem;
+            font-weight: 400;
+            letter-spacing: 0.3px;
             position: relative;
             padding: 0.2rem 0;
-            font-weight: 500;
-            letter-spacing: 0.3px;
+            transition: color 0.3s ease;
         }
 
-        /* animated underline with glow */
         .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: -4px;
+            bottom: -3px;
             left: 0;
-            width: 0%;
-            height: 2.5px;
-            background: var(--blue-accent);
+            width: 0;
+            height: 1px;
+            background: var(--ink);
             transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            box-shadow: 0 0 12px var(--blue-accent);
-            border-radius: 4px;
         }
 
         .nav-links a:hover {
-            color: #fff;
-            transform: translateY(-1px);
+            color: var(--ink);
         }
 
         .nav-links a:hover::after {
             width: 100%;
         }
 
-        /* active link state (optional) */
         .nav-links a.active {
-            color: #fff;
+            color: var(--ink);
         }
+
         .nav-links a.active::after {
             width: 100%;
         }
 
         .hamburger {
             display: none;
-            font-size: 1.8rem;
+            font-size: 1.2rem;
+            color: var(--ink);
             cursor: pointer;
-            color: #b6c8e5;
-            transition: transform 0.2s ease;
-        }
-        .hamburger:hover {
-            transform: scale(1.1);
-            color: #fff;
+            background: none;
+            border: none;
+            padding: 0.5rem;
         }
 
-        /* ----- sections common ----- */
+        /* ========== SECTIONS ========== */
         section {
-            padding: 5rem 0 4rem;
+            padding: 8rem 0;
             opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translateY(30px);
+            transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         section.visible {
@@ -170,480 +233,890 @@
             transform: translateY(0);
         }
 
-        .section-title {
-            font-size: 2.6rem;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            letter-spacing: -1px;
-            background: linear-gradient(135deg, #ffffff 0%, #8ab8ff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: inline-block;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .section-sub {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin-bottom: 3rem;
-            border-left: 3px solid var(--blue-accent);
-            padding-left: 1.2rem;
-            font-weight: 300;
-        }
-
-        /* home section */
+        /* ========== HOME ========== */
         #home {
-            min-height: 90vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
-            padding: 2rem 0 0;
+            padding-top: 7rem;
+            padding-bottom: 4rem;
+            background: var(--bg);
         }
+
         .home-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 5rem;
             align-items: center;
         }
+
         .home-content h1 {
-            font-size: 4.2rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1.2rem;
-            font-family: 'Poppins', sans-serif;
-        }
-        .home-content h1 .highlight {
-            background: linear-gradient(135deg, #1f8eff, #7bb3ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .home-content p {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            max-width: 500px;
+            font-family: 'Fraunces', serif;
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-weight: 400;
+            line-height: 1.02;
+            letter-spacing: -0.04em;
+            color: var(--ink);
             margin-bottom: 2rem;
+        }
+
+        .home-content h1 .accent {
+            font-style: italic;
             font-weight: 300;
         }
-        .btn {
-            display: inline-block;
-            background: var(--blue-accent);
-            color: #fff;
-            padding: 0.85rem 2.6rem;
-            border-radius: 40px;
-            font-weight: 600;
-            letter-spacing: 0.3px;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 20px rgba(31, 142, 255, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            font-family: 'Poppins', sans-serif;
-            cursor: pointer;
+
+        .home-content p {
+            color: var(--ink-soft);
+            font-size: 1.05rem;
+            font-weight: 400;
+            max-width: 460px;
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
         }
-        .btn:hover {
-            background: #3b9aff;
-            transform: scale(1.03) translateY(-2px);
-            box-shadow: 0 12px 30px rgba(31, 142, 255, 0.5);
+
+        .home-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.85rem 1.8rem;
+            border-radius: 100px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            border: 1px solid var(--ink);
+        }
+
+        .btn-primary {
+            background: var(--ink);
+            color: var(--bg);
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--ink);
+            transform: translateY(-2px);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--ink);
+            border: 1px solid var(--line);
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--ink);
+            transform: translateY(-2px);
         }
 
         .home-visual {
             display: flex;
             justify-content: center;
+            align-items: center;
         }
-        .avatar-ring {
+
+        .visual-frame {
             width: 340px;
-            height: 340px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, #1f8eff22, #080b10 75%);
+            height: 440px;
+            border-radius: 200px 200px 20px 20px;
+            background: var(--bg-soft);
+            border: 1px solid var(--line);
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 2px solid #1f8eff55;
-            box-shadow: 0 0 70px #1f8eff25;
-            animation: float 6s infinite alternate ease-in-out;
-        }
-        .avatar-ring i {
-            font-size: 9rem;
-            color: #eef2f8;
-            filter: drop-shadow(0 0 25px #1f8eff);
-        }
-        @keyframes float {
-            0% {
-                transform: translateY(0px);
-            }
-            100% {
-                transform: translateY(-16px);
-            }
+            position: relative;
+            overflow: hidden;
+            animation: float 7s ease-in-out infinite;
         }
 
-        /* intro / about */
-        #intro {
-            background: radial-gradient(circle at 70% 20%, #11171f, #080b10 90%);
+        .visual-frame::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 30%, rgba(0, 0, 0, 0.04), transparent 60%);
         }
+
+        .visual-frame i {
+            font-size: 6rem;
+            color: var(--ink);
+            opacity: 0.85;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-16px); }
+        }
+
+        /* ========== INTRO ========== */
+        #intro {
+            background: var(--bg-soft);
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+        }
+
         .intro-grid {
             display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 3.5rem;
-            align-items: center;
-        }
-        .intro-text p {
-            margin-bottom: 1.2rem;
-            color: var(--text-secondary);
-            font-size: 1.05rem;
-            font-weight: 300;
-        }
-        .intro-stats {
-            display: flex;
-            gap: 2rem;
-            margin-top: 2rem;
-            flex-wrap: wrap;
-        }
-        .stat-item {
-            background: #11171f;
-            padding: 1rem 2rem;
-            border-radius: 20px;
-            border: 1px solid #1f8eff22;
-            text-align: center;
-            backdrop-filter: blur(4px);
-            transition: all 0.3s ease;
-        }
-        .stat-item:hover {
-            border-color: #1f8eff;
-            box-shadow: 0 0 20px #1f8eff15;
-            transform: translateY(-4px);
-        }
-        .stat-item h3 {
-            font-size: 2.2rem;
-            color: #fff;
-            font-weight: 700;
-        }
-        .stat-item p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            font-weight: 300;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 5rem;
+            align-items: start;
         }
 
-        /* services */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 2rem;
-            margin-top: 1rem;
+        .intro-text p {
+            color: var(--ink-soft);
+            font-size: 1rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
         }
-        .service-card {
-            background: var(--bg-card);
-            padding: 2.2rem 1.8rem;
-            border-radius: 30px;
-            border: 1px solid #1f8eff22;
-            transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            backdrop-filter: blur(4px);
-            box-shadow: 0 10px 30px -10px #00000080;
-        }
-        .service-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--blue-accent);
-            background: var(--bg-card-hover);
-            box-shadow: 0 20px 40px -8px #1f8eff30;
-        }
-        .service-icon {
-            font-size: 2.8rem;
-            color: var(--blue-accent);
-            margin-bottom: 1.2rem;
-        }
-        .service-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.6rem;
+
+        .intro-text p strong {
+            color: var(--ink);
             font-weight: 600;
         }
-        .service-card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            font-weight: 300;
+
+        .stats-row {
+            display: flex;
+            gap: 3rem;
+            margin-top: 3rem;
+            padding-top: 3rem;
+            border-top: 1px solid var(--line);
         }
 
-        /* work / videos */
-        #work {
-            background: radial-gradient(circle at 30% 60%, #0f1620, #080b10 90%);
+        .stat h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 2.8rem;
+            font-weight: 400;
+            color: var(--ink);
+            line-height: 1;
+            margin-bottom: 0.5rem;
         }
-        .work-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.5rem;
-            margin-top: 1rem;
+
+        .stat p {
+            color: var(--ink-muted);
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
-        .work-item {
+
+        .intro-quote {
             background: var(--bg-card);
-            border-radius: 30px;
-            overflow: hidden;
-            border: 1px solid #1f8eff22;
+            padding: 3rem;
+            border-radius: 4px;
+            border: 1px solid var(--line);
+            position: relative;
+        }
+
+        .intro-quote::before {
+            content: '\201C';
+            font-family: 'Fraunces', serif;
+            font-size: 5rem;
+            color: var(--ink-faint);
+            position: absolute;
+            top: 1rem;
+            left: 2rem;
+            line-height: 1;
+        }
+
+        .intro-quote p {
+            font-family: 'Fraunces', serif;
+            font-size: 1.5rem;
+            font-style: italic;
+            font-weight: 300;
+            color: var(--ink);
+            line-height: 1.5;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tag-row {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            font-size: 0.68rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--ink);
+            background: transparent;
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+            border: 1px solid var(--line);
+        }
+
+        /* ========== SERVICES ========== */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 0;
+            border-top: 1px solid var(--line);
+        }
+
+        .service-card {
+            padding: 3rem 2rem;
+            border-right: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
             transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            box-shadow: 0 8px 25px -8px #000000aa;
+            background: transparent;
+            position: relative;
         }
-        .work-item:hover {
-            transform: scale(1.02) translateY(-6px);
-            border-color: #1f8eff88;
-            box-shadow: 0 20px 40px -10px #1f8eff30;
+
+        .service-card:first-child {
+            border-left: 1px solid var(--line);
         }
-        .work-video {
+
+        .service-card:hover {
+            background: var(--bg-card);
+        }
+
+        .service-number {
+            font-family: 'Fraunces', serif;
+            font-size: 0.85rem;
+            color: var(--ink-muted);
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .service-card h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: var(--ink);
+            margin-bottom: 0.8rem;
+            letter-spacing: -0.01em;
+        }
+
+        .service-card p {
+            color: var(--ink-soft);
+            font-size: 0.88rem;
+            font-weight: 400;
+            line-height: 1.7;
+        }
+
+        .service-icon {
+            font-size: 1.4rem;
+            color: var(--ink);
+            margin-bottom: 2rem;
+            opacity: 0.7;
+        }
+
+        /* ========== WORK / CAROUSEL ========== */
+        #work {
+            background: var(--bg);
+            overflow: hidden;
+            border-top: 1px solid var(--line);
+        }
+
+        .carousel-wrapper {
+            position: relative;
+            margin-top: 1rem;
+            padding: 0 60px;
+        }
+
+        .carousel-track-container {
+            overflow: hidden;
+            padding: 6px 0;
+        }
+
+        .carousel-track {
+            display: flex;
+            gap: 2rem;
+            will-change: transform;
+        }
+
+        .carousel-slide {
+            flex: 0 0 calc(33.333% - 1.333rem);
+            background: var(--bg-card);
+            border: 1px solid var(--line);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex;
+            flex-direction: column;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .carousel-slide:hover {
+            border-color: var(--ink);
+        }
+
+        .slide-media {
             width: 100%;
-            aspect-ratio: 16 / 9;
-            background: #0b0f17;
+            aspect-ratio: 16 / 10;
+            background: var(--bg-soft);
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             cursor: pointer;
+            overflow: hidden;
         }
-        .work-video video {
+
+        .slide-media video {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
+            filter: grayscale(100%);
+            transition: filter 0.5s ease;
         }
-        .work-video .play-overlay {
+
+        .carousel-slide:hover .slide-media video {
+            filter: grayscale(0%);
+        }
+
+        .slide-media .insta-embed {
+            width: 100%;
+            height: 100%;
+            background: var(--bg-soft);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            color: var(--ink);
+            position: relative;
+        }
+
+        .slide-media .insta-embed i {
+            font-size: 2.4rem;
+            color: var(--ink);
+            opacity: 0.6;
+        }
+
+        .slide-media .insta-embed span {
+            font-size: 0.75rem;
+            color: var(--ink-muted);
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .slide-media .insta-embed .ig-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(8, 11, 16, 0.3);
+            background: rgba(0, 0, 0, 0.02);
+            display: flex;
+            align-items: flex-end;
+            padding: 1rem;
+            font-size: 0.7rem;
+            color: var(--ink-muted);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .slide-media .insta-embed:hover .ig-overlay { opacity: 1; }
+
+        .slide-media .play-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.05);
             display: flex;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(2px);
             transition: opacity 0.3s ease;
-            color: #fff;
-            font-size: 3.5rem;
-            opacity: 0.7;
+            color: var(--ink);
+            font-size: 2.5rem;
+            opacity: 0.6;
+            pointer-events: none;
         }
-        .work-video:hover .play-overlay {
+
+        .slide-media:hover .play-overlay {
             opacity: 1;
-            background: rgba(31, 142, 255, 0.2);
         }
-        .work-item .work-info {
-            padding: 1.5rem 1.8rem;
+
+        .slide-info {
+            padding: 1.6rem 1.6rem 1.8rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
-        .work-info h3 {
-            font-size: 1.3rem;
+
+        .slide-info h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.15rem;
+            font-weight: 400;
+            color: var(--ink);
             margin-bottom: 0.3rem;
-            font-weight: 600;
-        }
-        .work-info p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            font-weight: 300;
+            line-height: 1.3;
+            letter-spacing: -0.01em;
         }
 
-        /* testimonials */
-        #testimonials {
-            background: radial-gradient(circle at 20% 50%, #11171f, #080b10 90%);
-        }
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-        .testimonial-card {
-            background: var(--bg-card);
-            padding: 2rem;
-            border-radius: 30px;
-            border: 1px solid #1f8eff1a;
-            backdrop-filter: blur(4px);
-            transition: all 0.3s ease;
-        }
-        .testimonial-card:hover {
-            border-color: #1f8eff66;
-            background: #19222e;
-            box-shadow: 0 0 30px #1f8eff10;
-            transform: translateY(-4px);
-        }
-        .testimonial-card i {
-            color: var(--blue-accent);
-            font-size: 2rem;
-            opacity: 0.5;
-            margin-bottom: 0.5rem;
-        }
-        .testimonial-card p {
-            font-style: italic;
-            color: #d0def0;
-            margin: 0.8rem 0;
-            font-weight: 300;
-        }
-        .testimonial-card h4 {
-            color: #fff;
-            font-weight: 600;
-        }
-        .testimonial-card span {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            font-weight: 300;
-        }
-
-        /* contact */
-        #contact {
-            padding-bottom: 3rem;
-        }
-        .contact-wrap {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 4rem;
-            align-items: start;
-        }
-        .contact-info h3 {
-            font-size: 1.8rem;
+        .slide-info .meta {
+            color: var(--ink-muted);
+            font-size: 0.78rem;
+            font-weight: 400;
             margin-bottom: 1rem;
         }
-        .contact-info p {
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            font-weight: 300;
-        }
-        .contact-detail {
+
+        .slide-metrics {
             display: flex;
-            gap: 1rem;
             align-items: center;
-            margin-bottom: 1.2rem;
-            transition: all 0.2s ease;
+            gap: 1rem;
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid var(--line);
         }
-        .contact-detail i {
-            font-size: 1.4rem;
-            color: var(--blue-accent);
-            width: 30px;
+
+        .slide-metrics .metric {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.72rem;
+            color: var(--ink-soft);
+            font-weight: 400;
         }
-        .contact-detail:hover {
-            color: #fff;
-            transform: translateX(4px);
+
+        .slide-metrics .metric i {
+            font-size: 0.7rem;
+            color: var(--ink-muted);
+        }
+
+        /* Carousel Controls */
+        .carousel-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--line);
+        }
+
+        .carousel-arrows {
+            display: flex;
+            gap: 0.6rem;
+        }
+
+        .carousel-arrow {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: transparent;
+            border: 1px solid var(--line);
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.8rem;
+        }
+
+        .carousel-arrow:hover {
+            background: var(--ink);
+            border-color: var(--ink);
+            color: var(--bg);
+        }
+
+        .carousel-dots {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--line);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .carousel-dot.active {
+            background: var(--ink);
+            width: 24px;
+            border-radius: 10px;
+        }
+
+        /* ========== TESTIMONIALS ========== */
+        #testimonials {
+            background: var(--bg-soft);
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .testimonial-card {
+            background: var(--bg-card);
+            padding: 2.5rem 2rem;
+            border-radius: 4px;
+            border: 1px solid var(--line);
+            transition: all 0.4s ease;
+        }
+
+        .testimonial-card:hover {
+            border-color: var(--ink);
+            transform: translateY(-4px);
+        }
+
+        .testimonial-stars {
+            color: var(--ink);
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            margin-bottom: 1.5rem;
+            opacity: 0.6;
+        }
+
+        .testimonial-card p {
+            color: var(--ink-soft);
+            font-size: 0.95rem;
+            font-weight: 400;
+            font-style: italic;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            font-family: 'Fraunces', serif;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--line);
+        }
+
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--ink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bg);
+            font-weight: 500;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+        }
+
+        .author-info h4 {
+            color: var(--ink);
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0.1rem;
+        }
+
+        .author-info span {
+            color: var(--ink-muted);
+            font-size: 0.72rem;
+            font-weight: 400;
+        }
+
+        /* ========== CONTACT ========== */
+        #contact {
+            background: var(--bg);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 6rem;
+            align-items: start;
+        }
+
+        .contact-info p {
+            color: var(--ink-soft);
+            font-size: 0.95rem;
+            font-weight: 400;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+        }
+
+        .contact-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            color: var(--ink-soft);
+            font-size: 0.9rem;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            padding: 1.2rem 0;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .contact-item:first-child {
+            border-top: 1px solid var(--line);
+        }
+
+        .contact-item:hover {
+            color: var(--ink);
+            padding-left: 0.5rem;
+        }
+
+        .contact-item i {
+            width: 20px;
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
         }
 
         .contact-form input,
         .contact-form textarea {
             width: 100%;
-            padding: 0.9rem 1.2rem;
-            border-radius: 30px;
-            background: #11171f;
-            border: 1px solid #2a3345;
-            color: #fff;
-            font-family: 'Poppins', sans-serif;
-            transition: all 0.3s ease;
-            margin-bottom: 1rem;
+            padding: 1rem 0;
+            border: none;
+            border-bottom: 1px solid var(--line);
+            background: transparent;
+            color: var(--ink);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 400;
             outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: var(--ink-faint);
             font-weight: 300;
         }
+
         .contact-form input:focus,
         .contact-form textarea:focus {
-            border-color: var(--blue-accent);
-            box-shadow: 0 0 0 4px #1f8eff22;
+            border-bottom-color: var(--ink);
         }
+
         .contact-form textarea {
-            min-height: 130px;
+            min-height: 120px;
             resize: vertical;
-            border-radius: 24px;
+            font-family: 'Inter', sans-serif;
         }
+
         .contact-form .btn {
-            border: none;
-            width: fit-content;
-            cursor: pointer;
+            align-self: flex-start;
+            margin-top: 1rem;
         }
 
+        /* ========== FOOTER ========== */
         footer {
-            border-top: 1px solid #1f8eff22;
-            padding: 2.5rem 0 2rem;
+            padding: 2.5rem 0;
             text-align: center;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            font-weight: 300;
+            border-top: 1px solid var(--line);
         }
 
-        /* responsive */
+        footer p {
+            color: var(--ink-muted);
+            font-size: 0.75rem;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media screen and (max-width: 1024px) {
+            .carousel-slide {
+                flex: 0 0 calc(50% - 1rem);
+            }
+
+            .home-content h1 {
+                font-size: 3.5rem;
+            }
+
+            .visual-frame {
+                width: 300px;
+                height: 380px;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         @media screen and (max-width: 900px) {
+            section {
+                padding: 6rem 0;
+            }
+
             .home-grid {
                 grid-template-columns: 1fr;
-                text-align: center;
+                text-align: left;
+                gap: 3rem;
             }
+
             .home-content p {
-                margin: 0 auto 2rem;
+                margin: 0 0 2.5rem;
             }
-            .intro-grid {
+
+            .home-actions {
+                justify-content: flex-start;
+            }
+
+            .intro-grid,
+            .contact-grid {
                 grid-template-columns: 1fr;
+                gap: 3rem;
             }
-            .contact-wrap {
-                grid-template-columns: 1fr;
-            }
+
             .nav-links {
                 display: none;
-                flex-direction: column;
-                gap: 1.2rem;
-                background: #080b10ee;
-                backdrop-filter: blur(16px);
-                padding: 2rem 2.2rem;
-                border-radius: 30px;
                 position: absolute;
-                top: 75px;
-                right: 20px;
-                width: 200px;
-                border: 1px solid #1f8eff33;
-                transition: all 0.3s ease;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                gap: 0;
+                background: rgba(250, 250, 248, 0.98);
+                backdrop-filter: blur(20px);
+                padding: 1.5rem 2.5rem;
+                border-bottom: 1px solid var(--line);
             }
+
             .nav-links.open {
                 display: flex;
             }
+
+            .nav-links a {
+                padding: 1rem 0;
+                border-bottom: 1px solid var(--line);
+                width: 100%;
+                font-size: 0.9rem;
+            }
+
+            .nav-links a:last-child {
+                border-bottom: none;
+            }
+
             .hamburger {
                 display: block;
             }
-            .avatar-ring {
-                width: 240px;
-                height: 240px;
+
+            .section-title {
+                font-size: 2.4rem;
             }
-            .avatar-ring i {
-                font-size: 6rem;
-            }
-            .home-content h1 {
-                font-size: 2.8rem;
-            }
-            .work-grid {
+
+            .services-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .service-card {
+                border-right: none;
+                border-left: none;
+            }
+
+            .service-card:first-child {
+                border-left: none;
+            }
+        }
+
+        @media screen and (max-width: 700px) {
+            .carousel-slide {
+                flex: 0 0 100%;
+            }
+
+            .carousel-controls {
+                flex-direction: column;
+                gap: 1.5rem;
+                align-items: flex-start;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-row {
+                gap: 2rem;
+                flex-wrap: wrap;
             }
         }
 
         @media screen and (max-width: 480px) {
             .container {
-                padding: 0 1.2rem;
+                padding: 0 1.5rem;
             }
+
+            section {
+                padding: 5rem 0;
+            }
+
+            .home-content h1 {
+                font-size: 2.6rem;
+            }
+
             .section-title {
                 font-size: 2rem;
             }
-        }
 
-        /* extra smoothness for cards */
-        .service-card,
-        .testimonial-card,
-        .stat-item,
-        .work-item {
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
+            .visual-frame {
+                width: 240px;
+                height: 320px;
+            }
 
-        /* active nav link highlight (via js) */
-        .nav-links a.active {
-            color: #fff;
-        }
-        .nav-links a.active::after {
-            width: 100%;
+            .visual-frame i {
+                font-size: 4rem;
+            }
+
+            .carousel-wrapper {
+                padding: 0 20px;
+            }
+
+            .carousel-arrow {
+                width: 38px;
+                height: 38px;
+            }
+
+            .intro-quote {
+                padding: 2rem;
+            }
+
+            .intro-quote p {
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- header -->
-    <header>
+    <header id="header">
         <div class="container nav">
-            <div class="logo">Anshika<span>.</span></div>
-            <div class="hamburger" id="hamburger">
+            <a href="#home" class="logo">Anshika<span class="dot">.</span></a>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
                 <i class="fas fa-bars"></i>
-            </div>
-            <div class="nav-links" id="navLinks">
+            </button>
+            <nav class="nav-links" id="navLinks">
                 <a href="#home" class="active">Home</a>
                 <a href="#intro">Intro</a>
                 <a href="#services">Services</a>
                 <a href="#work">Work</a>
                 <a href="#testimonials">Testimonials</a>
                 <a href="#contact">Contact</a>
-            </div>
+            </nav>
         </div>
     </header>
 
@@ -652,13 +1125,21 @@
         <section id="home">
             <div class="container home-grid">
                 <div class="home-content">
-                    <h1>Content creator <br /><span class="highlight">Anshika</span></h1>
-                    <p>Video, scripts, social media &amp; strategy — 4 months at Jeena Sikho Healthcare, 1 year in social media services.</p>
-                    <a href="#contact" class="btn"><i class="fas fa-paper-plane" style="margin-right: 10px;"></i>Let's create</a>
+                    <span class="section-label">Content Creator</span>
+                    <h1>Anshika<span class="accent">.</span></h1>
+                    <p>I craft videos, scripts, and social strategies that make brands unforgettable. Currently creating at Jeena Sikho Healthcare with a year of hands-on social media experience.</p>
+                    <div class="home-actions">
+                        <a href="#contact" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Let's talk
+                        </a>
+                        <a href="#work" class="btn btn-ghost">
+                            View work <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
                 </div>
                 <div class="home-visual">
-                    <div class="avatar-ring">
-                        <i class="fas fa-user-astronaut"></i>
+                    <div class="visual-frame">
+                        <i class="fas fa-film"></i>
                     </div>
                 </div>
             </div>
@@ -668,24 +1149,34 @@
         <section id="intro">
             <div class="container intro-grid">
                 <div>
-                    <span class="section-title" style="font-size: 2.2rem;">About Anshika</span>
+                    <span class="section-label">About</span>
+                    <h2 class="section-title">The story<br>behind the frame</h2>
                     <div class="intro-text">
-                        <p>Content creator with a passion for storytelling and visual impact. I craft video content, manage social platforms, and write scripts that resonate. Currently working with <strong>Jeena Sikho Healthcare Pvt Ltd</strong> (4 months) and bringing 1 year of hands-on social media experience.</p>
+                        <p>Content creator with a passion for storytelling and visual impact. I craft video content, manage social platforms, and write scripts that resonate. Currently working with <strong>Jeena Sikho Healthcare Pvt Ltd</strong> and bringing one year of hands-on social media experience.</p>
                         <p>I blend creativity with data to help brands stand out — from script to screen, every detail matters.</p>
-                        <div class="intro-stats">
-                            <div class="stat-item"><h3>1+</h3><p>year social media</p></div>
-                            <div class="stat-item"><h3>4</h3><p>months healthcare</p></div>
-                            <div class="stat-item"><h3>12+</h3><p>projects</p></div>
+                    </div>
+                    <div class="stats-row">
+                        <div class="stat">
+                            <h3>1+</h3>
+                            <p>Year social</p>
+                        </div>
+                        <div class="stat">
+                            <h3>4</h3>
+                            <p>Months healthcare</p>
+                        </div>
+                        <div class="stat">
+                            <h3>12+</h3>
+                            <p>Projects</p>
                         </div>
                     </div>
                 </div>
-                <div style="background: #11171f; padding: 2rem; border-radius: 40px; border: 1px solid #1f8eff33; backdrop-filter: blur(4px);">
-                    <i class="fas fa-quote-left" style="color: #1f8eff; font-size: 2.4rem; opacity: 0.6;"></i>
-                    <p style="font-size: 1.2rem; font-weight: 300; margin: 0.8rem 0 1.8rem; color: #d0def0;">“Content is fire, social media is gasoline.”</p>
-                    <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
-                        <span style="background: #1f8eff22; padding: 0.4rem 1.2rem; border-radius: 60px; border: 1px solid #1f8eff44;"><i class="fas fa-video" style="margin-right: 8px;"></i>Video</span>
-                        <span style="background: #1f8eff22; padding: 0.4rem 1.2rem; border-radius: 60px; border: 1px solid #1f8eff44;"><i class="fas fa-pen-fancy" style="margin-right: 8px;"></i>Scripts</span>
-                        <span style="background: #1f8eff22; padding: 0.4rem 1.2rem; border-radius: 60px; border: 1px solid #1f8eff44;"><i class="fas fa-hashtag" style="margin-right: 8px;"></i>Social</span>
+                <div class="intro-quote">
+                    <p>Content is fire, social media is gasoline.</p>
+                    <div class="tag-row">
+                        <span class="tag">Video</span>
+                        <span class="tag">Scripts</span>
+                        <span class="tag">Social</span>
+                        <span class="tag">Strategy</span>
                     </div>
                 </div>
             </div>
@@ -694,55 +1185,167 @@
         <!-- SERVICES -->
         <section id="services">
             <div class="container">
-                <span class="section-title">Services</span>
-                <div class="section-sub">From script to strategy — content that connects.</div>
+                <span class="section-label">Services</span>
+                <h2 class="section-title">What I do</h2>
+                <p class="section-desc">From script to strategy — content that connects and converts.</p>
                 <div class="services-grid">
-                    <div class="service-card"><div class="service-icon"><i class="fas fa-film"></i></div><h3>Video production</h3><p>Shooting, editing, and post-production for social & web.</p></div>
-                    <div class="service-card"><div class="service-icon"><i class="fas fa-scroll"></i></div><h3>Scriptwriting</h3><p>Engaging scripts for reels, ads, YouTube, and brand stories.</p></div>
-                    <div class="service-card"><div class="service-icon"><i class="fas fa-share-alt"></i></div><h3>Social media management</h3><p>Content calendars, community engagement, growth strategy.</p></div>
-                    <div class="service-card"><div class="service-icon"><i class="fas fa-chart-line"></i></div><h3>Content strategy</h3><p>Audience analysis, trend research, and performance optimization.</p></div>
+                    <div class="service-card">
+                        <div class="service-number">01</div>
+                        <div class="service-icon"><i class="fas fa-video"></i></div>
+                        <h3>Video Production</h3>
+                        <p>Shooting, editing, and post-production for social media and web.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-number">02</div>
+                        <div class="service-icon"><i class="fas fa-pen-fancy"></i></div>
+                        <h3>Scriptwriting</h3>
+                        <p>Engaging scripts for reels, ads, YouTube, and brand stories.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-number">03</div>
+                        <div class="service-icon"><i class="fas fa-share-alt"></i></div>
+                        <h3>Social Media Management</h3>
+                        <p>Content calendars, community engagement, and growth strategy.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-number">04</div>
+                        <div class="service-icon"><i class="fas fa-chart-line"></i></div>
+                        <h3>Content Strategy</h3>
+                        <p>Audience analysis, trend research, and performance optimization.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- WORK / VIDEOS -->
+        <!-- WORK / CAROUSEL -->
         <section id="work">
             <div class="container">
-                <span class="section-title">Featured work</span>
-                <div class="section-sub">A glimpse of recent video projects &amp; reels.</div>
-                <div class="work-grid">
-                    <!-- video 1 -->
-                    <div class="work-item">
-                        <div class="work-video" onclick="this.querySelector('video').paused ? this.querySelector('video').play() : this.querySelector('video').pause()">
-                            <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted></video>
-                            <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
-                        </div>
-                        <div class="work-info">
-                            <h3>Healthcare awareness reel</h3>
-                            <p>Script &amp; edit · Jeena Sikho Healthcare</p>
+                <span class="section-label">Portfolio</span>
+                <h2 class="section-title">Featured work</h2>
+                <p class="section-desc">A curated selection of recent projects — videos, reels, and social campaigns.</p>
+
+                <div class="carousel-wrapper">
+                    <div class="carousel-track-container">
+                        <div class="carousel-track" id="carouselTrack">
+
+                            <article class="carousel-slide">
+                                <div class="slide-media" onclick="togglePlay(this)">
+                                    <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop preload="metadata"></video>
+                                    <div class="play-overlay"><i class="fas fa-play"></i></div>
+                                </div>
+                                <div class="slide-info">
+                                    <h3>Healthcare Awareness Reel</h3>
+                                    <p class="meta">Script &amp; Edit · Jeena Sikho</p>
+                                    <div class="slide-metrics">
+                                        <span class="metric"><i class="fas fa-eye"></i> 42.3K</span>
+                                        <span class="metric"><i class="fas fa-heart"></i> 3.1K</span>
+                                        <span class="metric"><i class="fas fa-comment"></i> 184</span>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article class="carousel-slide">
+                                <div class="slide-media" onclick="openInsta()">
+                                    <div class="insta-embed">
+                                        <i class="fab fa-instagram"></i>
+                                        <span>View on Instagram</span>
+                                        <div class="ig-overlay">@anshika.creates · 12.4k views</div>
+                                    </div>
+                                </div>
+                                <div class="slide-info">
+                                    <h3>Brand Story : Startup</h3>
+                                    <p class="meta">Social campaign · 1M+ reach</p>
+                                    <div class="slide-metrics">
+                                        <span class="metric"><i class="fas fa-eye"></i> 1.2M</span>
+                                        <span class="metric"><i class="fas fa-heart"></i> 89K</span>
+                                        <span class="metric"><i class="fas fa-comment"></i> 2.4K</span>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article class="carousel-slide">
+                                <div class="slide-media" onclick="togglePlay(this)">
+                                    <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop preload="metadata"></video>
+                                    <div class="play-overlay"><i class="fas fa-play"></i></div>
+                                </div>
+                                <div class="slide-info">
+                                    <h3>Product Explainer</h3>
+                                    <p class="meta">Script, animation &amp; voiceover</p>
+                                    <div class="slide-metrics">
+                                        <span class="metric"><i class="fas fa-eye"></i> 28.7K</span>
+                                        <span class="metric"><i class="fas fa-heart"></i> 2.2K</span>
+                                        <span class="metric"><i class="fas fa-comment"></i> 96</span>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article class="carousel-slide">
+                                <div class="slide-media" onclick="openInsta()">
+                                    <div class="insta-embed">
+                                        <i class="fab fa-instagram"></i>
+                                        <span>View on Instagram</span>
+                                        <div class="ig-overlay">@anshika.creates · 8.7k likes</div>
+                                    </div>
+                                </div>
+                                <div class="slide-info">
+                                    <h3>Behind the Scenes</h3>
+                                    <p class="meta">Creative process · Jeena Sikho</p>
+                                    <div class="slide-metrics">
+                                        <span class="metric"><i class="fas fa-eye"></i> 8.7K</span>
+                                        <span class="metric"><i class="fas fa-heart"></i> 942</span>
+                                        <span class="metric"><i class="fas fa-comment"></i> 47</span>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article class="carousel-slide">
+                                <div class="slide-media" onclick="togglePlay(this)">
+                                    <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop preload="metadata"></video>
+                                    <div class="play-overlay"><i class="fas fa-play"></i></div>
+                                </div>
+                                <div class="slide-info">
+                                    <h3>Testimonial Reel</h3>
+                                    <p class="meta">Client stories · social campaign</p>
+                                    <div class="slide-metrics">
+                                        <span class="metric"><i class="fas fa-eye"></i> 15.2K</span>
+                                        <span class="metric"><i class="fas fa-heart"></i> 1.4K</span>
+                                        <span class="metric"><i class="fas fa-comment"></i> 62</span>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article class="carousel-slide">
+                                <div class="slide-media" onclick="openInsta()">
+                                    <div class="insta-embed">
+                                        <i class="fab fa-instagram"></i>
+                                        <span>View on Instagram</span>
+                                        <div class="ig-overlay">@anshika.creates · 5.2k views</div>
+                                    </div>
+                                </div>
+                                <div class="slide-info">
+                                    <h3>Carousel Post · Tips</h3>
+                                    <p class="meta">Content strategy series</p>
+                                    <div class="slide-metrics">
+                                        <span class="metric"><i class="fas fa-eye"></i> 5.2K</span>
+                                        <span class="metric"><i class="fas fa-heart"></i> 618</span>
+                                        <span class="metric"><i class="fas fa-comment"></i> 31</span>
+                                    </div>
+                                </div>
+                            </article>
+
                         </div>
                     </div>
-                    <!-- video 2 -->
-                    <div class="work-item">
-                        <div class="work-video" onclick="this.querySelector('video').paused ? this.querySelector('video').play() : this.querySelector('video').pause()">
-                            <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted></video>
-                            <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+
+                    <div class="carousel-controls">
+                        <div class="carousel-arrows">
+                            <button class="carousel-arrow" id="prevBtn" aria-label="Previous">
+                                <i class="fas fa-arrow-left"></i>
+                            </button>
+                            <button class="carousel-arrow" id="nextBtn" aria-label="Next">
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
                         </div>
-                        <div class="work-info">
-                            <h3>Brand story : startup</h3>
-                            <p>Social media campaign · 1M+ reach</p>
-                        </div>
-                    </div>
-                    <!-- video 3 -->
-                    <div class="work-item">
-                        <div class="work-video" onclick="this.querySelector('video').paused ? this.querySelector('video').play() : this.querySelector('video').pause()">
-                            <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted></video>
-                            <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
-                        </div>
-                        <div class="work-info">
-                            <h3>Product explainer</h3>
-                            <p>Script, animation &amp; voiceover</p>
-                        </div>
+                        <div class="carousel-dots" id="carouselDots"></div>
                     </div>
                 </div>
             </div>
@@ -751,32 +1354,83 @@
         <!-- TESTIMONIALS -->
         <section id="testimonials">
             <div class="container">
-                <span class="section-title">Testimonials</span>
-                <div class="section-sub">What people say about working with Anshika.</div>
-                <div class="testimonial-grid">
-                    <div class="testimonial-card"><i class="fas fa-quote-right"></i><p>“Anshika’s video scripts doubled our engagement on Instagram. She truly understands the audience.”</p><h4>— Jeena Sikho Healthcare</h4><span>content lead</span></div>
-                    <div class="testimonial-card"><i class="fas fa-quote-right"></i><p>“Professional, creative, and always on time. Her social media strategies brought fresh energy to our brand.”</p><h4>— R. Kapoor</h4><span>founder, startup</span></div>
-                    <div class="testimonial-card"><i class="fas fa-quote-right"></i><p>“Anshika’s content is vibrant and authentic. She elevates every project with her cinematic eye.”</p><h4>— Priya M.</h4><span>creative director</span></div>
+                <span class="section-label">Kind words</span>
+                <h2 class="section-title">Testimonials</h2>
+                <p class="section-desc">What collaborators and clients say about working together.</p>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p>"Anshika's video scripts doubled our engagement on Instagram. She truly understands the audience and delivers every single time."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">JS</div>
+                            <div class="author-info">
+                                <h4>Jeena Sikho Healthcare</h4>
+                                <span>Content Lead</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p>"Professional, creative, and always on time. Her social media strategies brought fresh energy to our brand's digital presence."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">RK</div>
+                            <div class="author-info">
+                                <h4>R. Kapoor</h4>
+                                <span>Founder, Startup</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p>"Anshika's content is vibrant and authentic. She elevates every project with her cinematic eye and sharp storytelling instincts."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">PM</div>
+                            <div class="author-info">
+                                <h4>Priya M.</h4>
+                                <span>Creative Director</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- CONTACT -->
         <section id="contact">
-            <div class="container contact-wrap">
+            <div class="container contact-grid">
                 <div class="contact-info">
-                    <span class="section-title" style="font-size: 2.2rem;">Let’s talk</span>
-                    <p>Have a project, collaboration, or just want to say hi? Reach out.</p>
-                    <div class="contact-detail"><i class="fas fa-envelope"></i> <span>anshika.creator@email.me</span></div>
-                    <div class="contact-detail"><i class="fas fa-phone-alt"></i> <span>+91 98765 43210</span></div>
-                    <div class="contact-detail"><i class="fab fa-instagram"></i> <span>@anshika.creates</span></div>
-                    <div class="contact-detail"><i class="fab fa-linkedin"></i> <span>linkedin.com/in/anshika</span></div>
+                    <span class="section-label">Get in touch</span>
+                    <h2 class="section-title">Let's create<br>something great</h2>
+                    <p>Have a project, collaboration, or just want to say hi? I'd love to hear from you.</p>
+                    <div class="contact-list">
+                        <a href="mailto:anshika.creator@email.me" class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>anshika.creator@email.me</span>
+                        </a>
+                        <a href="tel:+919876543210" class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+91 98765 43210</span>
+                        </a>
+                        <a href="https://instagram.com/anshika.creates" target="_blank" class="contact-item">
+                            <i class="fab fa-instagram"></i>
+                            <span>@anshika.creates</span>
+                        </a>
+                        <a href="https://linkedin.com/in/anshika" target="_blank" class="contact-item">
+                            <i class="fab fa-linkedin"></i>
+                            <span>linkedin.com/in/anshika</span>
+                        </a>
+                    </div>
                 </div>
-                <form class="contact-form">
-                    <input type="text" placeholder="Your name" required />
-                    <input type="email" placeholder="Email address" required />
-                    <textarea placeholder="Tell me about your project ..."></textarea>
-                    <button type="submit" class="btn"><i class="fas fa-paper-plane" style="margin-right: 10px;"></i>Send message</button>
+                <form class="contact-form" onsubmit="event.preventDefault(); alert('Thanks! I will get back to you soon.');">
+                    <div class="form-row">
+                        <input type="text" placeholder="Your name" required />
+                        <input type="email" placeholder="Email address" required />
+                    </div>
+                    <input type="text" placeholder="Subject" />
+                    <textarea placeholder="Tell me about your project..."></textarea>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i> Send message
+                    </button>
                 </form>
             </div>
         </section>
@@ -784,49 +1438,51 @@
 
     <footer>
         <div class="container">
-            <p>© 2026 Anshika · content creator · built with <i class="fas fa-heart" style="color: #1f8eff; margin: 0 4px;"></i> & blue/black</p>
+            <p>© 2026 Anshika · Content Creator · Crafted with care</p>
         </div>
     </footer>
 
     <script>
-        // ----- MOBILE HAMBURGER TOGGLE (smooth) -----
+        /* ========== HEADER SCROLL EFFECT ========== */
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 40) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        /* ========== MOBILE MENU ========== */
         const hamburger = document.getElementById('hamburger');
         const navLinks = document.getElementById('navLinks');
 
         hamburger.addEventListener('click', () => {
             navLinks.classList.toggle('open');
-            // icon toggle (optional)
             const icon = hamburger.querySelector('i');
-            if (navLinks.classList.contains('open')) {
-                icon.className = 'fas fa-times';
-            } else {
-                icon.className = 'fas fa-bars';
-            }
+            icon.className = navLinks.classList.contains('open') ? 'fas fa-times' : 'fas fa-bars';
         });
 
-        // close nav on link click (mobile) + smooth active state
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('open');
-                const icon = hamburger.querySelector('i');
-                icon.className = 'fas fa-bars';
+                hamburger.querySelector('i').className = 'fas fa-bars';
             });
         });
 
-        // ----- SMOOTH ACTIVE NAV LINK (highlight on scroll) -----
+        /* ========== ACTIVE NAV LINK ========== */
         const sections = document.querySelectorAll('section');
-        const navLinksArray = document.querySelectorAll('.nav-links a');
+        const navAnchors = document.querySelectorAll('.nav-links a');
 
         function updateActiveLink() {
             let current = '';
             sections.forEach(section => {
-                const sectionTop = section.offsetTop - 120;
-                if (window.scrollY >= sectionTop) {
+                const top = section.offsetTop - 200;
+                if (window.scrollY >= top) {
                     current = section.getAttribute('id');
                 }
             });
-
-            navLinksArray.forEach(link => {
+            navAnchors.forEach(link => {
                 link.classList.remove('active');
                 if (link.getAttribute('href') === `#${current}`) {
                     link.classList.add('active');
@@ -837,64 +1493,190 @@
         window.addEventListener('scroll', updateActiveLink);
         window.addEventListener('load', updateActiveLink);
 
-        // ----- INTERSECTION OBSERVER for fade-up sections -----
+        /* ========== SECTION FADE IN ========== */
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
                 }
             });
-        }, { threshold: 0.15, rootMargin: '0px 0px -20px 0px' });
+        }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
 
         sections.forEach(s => {
             observer.observe(s);
-            // if already visible on load (home)
             if (s.getBoundingClientRect().top < window.innerHeight) {
                 s.classList.add('visible');
             }
         });
 
-        // ----- VIDEO PLAY/PAUSE with overlay toggle (smooth) -----
-        document.querySelectorAll('.work-video').forEach(videoWrapper => {
-            const video = videoWrapper.querySelector('video');
-            const overlay = videoWrapper.querySelector('.play-overlay');
+        /* ========== CAROUSEL (INFINITE LOOP) ========== */
+        const track = document.getElementById('carouselTrack');
+        const originalSlides = Array.from(track.children);
+        const originalCount = originalSlides.length;
 
-            videoWrapper.addEventListener('click', (e) => {
-                if (video.paused) {
-                    video.play();
-                    overlay.style.opacity = '0';
-                } else {
-                    video.pause();
-                    overlay.style.opacity = '0.7';
-                }
-            });
-
-            video.addEventListener('pause', () => {
-                overlay.style.opacity = '0.7';
-            });
-            video.addEventListener('play', () => {
-                overlay.style.opacity = '0';
-            });
-            video.addEventListener('ended', () => {
-                overlay.style.opacity = '0.7';
-            });
+        originalSlides.forEach(slide => {
+            const clone = slide.cloneNode(true);
+            track.appendChild(clone);
         });
 
-        // ----- SMOOTH SCROLL for all anchor links (enhancement) -----
+        const allSlides = Array.from(track.children);
+
+        let currentIndex = 0;
+        let isTransitioning = false;
+
+        function getSlidesPerView() {
+            const w = window.innerWidth;
+            if (w <= 700) return 1;
+            if (w <= 1024) return 2;
+            return 3;
+        }
+
+        function getGap() {
+            const style = window.getComputedStyle(track);
+            return parseFloat(style.gap) || 32;
+        }
+
+        function updateCarousel(animate = true) {
+            const slideWidth = allSlides[0].getBoundingClientRect().width;
+            const gap = getGap();
+            const moveAmount = (slideWidth + gap) * currentIndex;
+
+            if (!animate) {
+                track.style.transition = 'none';
+            } else {
+                track.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            }
+            track.style.transform = `translateX(-${moveAmount}px)`;
+            updateDots();
+        }
+
+        function createDots() {
+            const dotsContainer = document.getElementById('carouselDots');
+            dotsContainer.innerHTML = '';
+            for (let i = 0; i < originalCount; i++) {
+                const dot = document.createElement('button');
+                dot.classList.add('carousel-dot');
+                if (i === 0) dot.classList.add('active');
+                dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+                dot.addEventListener('click', () => {
+                    if (isTransitioning) return;
+                    currentIndex = i;
+                    updateCarousel();
+                });
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        function updateDots() {
+            const dots = document.querySelectorAll('.carousel-dot');
+            let activeIndex = currentIndex % originalCount;
+            if (activeIndex < 0) activeIndex = originalCount + activeIndex;
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === activeIndex);
+            });
+        }
+
+        track.addEventListener('transitionend', () => {
+            isTransitioning = false;
+            if (currentIndex >= originalCount) {
+                currentIndex = currentIndex - originalCount;
+                updateCarousel(false);
+            } else if (currentIndex < 0) {
+                currentIndex = originalCount + currentIndex;
+                updateCarousel(false);
+            }
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            if (isTransitioning) return;
+            isTransitioning = true;
+            if (currentIndex <= 0) {
+                currentIndex = originalCount - 1;
+                updateCarousel(false);
+                setTimeout(() => { isTransitioning = false; }, 50);
+                return;
+            }
+            currentIndex--;
+            updateCarousel();
+        });
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            if (isTransitioning) return;
+            isTransitioning = true;
+            currentIndex++;
+            updateCarousel();
+        });
+
+        function recalcCarousel() {
+            if (currentIndex >= originalCount) currentIndex = 0;
+            updateCarousel(false);
+            setTimeout(() => updateCarousel(true), 50);
+        }
+
+        window.addEventListener('resize', () => {
+            track.style.transition = 'none';
+            recalcCarousel();
+        });
+
+        window.addEventListener('load', () => {
+            createDots();
+            updateCarousel(false);
+            setTimeout(() => updateCarousel(true), 150);
+        });
+
+        /* ========== VIDEO PLAY / PAUSE ========== */
+        function togglePlay(mediaDiv) {
+            const video = mediaDiv.querySelector('video');
+            if (!video) return;
+            const overlay = mediaDiv.querySelector('.play-overlay');
+            if (video.paused) {
+                document.querySelectorAll('.slide-media video').forEach(v => {
+                    if (v !== video) {
+                        v.pause();
+                        const ov = v.parentElement.querySelector('.play-overlay');
+                        if (ov) ov.style.opacity = '0.6';
+                    }
+                });
+                video.play();
+                if (overlay) overlay.style.opacity = '0';
+            } else {
+                video.pause();
+                if (overlay) overlay.style.opacity = '0.6';
+            }
+        }
+
+        document.querySelectorAll('.slide-media video').forEach(video => {
+            const overlay = video.parentElement.querySelector('.play-overlay');
+            if (!overlay) return;
+            video.addEventListener('pause', () => { overlay.style.opacity = '0.6'; });
+            video.addEventListener('play', () => { overlay.style.opacity = '0'; });
+            video.addEventListener('ended', () => { overlay.style.opacity = '0.6'; });
+        });
+
+        /* ========== INSTAGRAM LINK ========== */
+        function openInsta() {
+            window.open('https://instagram.com/anshika.creates', '_blank');
+        }
+
+        /* ========== SMOOTH SCROLL ========== */
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
+            anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
                 if (targetId === '#') return;
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start',
+                const target = document.querySelector(targetId);
+                if (target) {
+                    const offsetTop = target.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
                     });
                 }
             });
         });
+
+        window.togglePlay = togglePlay;
+        window.openInsta = openInsta;
     </script>
 </body>
 </html>
