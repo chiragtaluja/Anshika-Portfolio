@@ -44,7 +44,6 @@
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         }
 
-        /* ========== THEME ========== */
         :root {
             --bg: #fafaf8;
             --bg-soft: #f2f2ef;
@@ -641,7 +640,6 @@
         .carousel-wrapper {
             position: relative;
             margin-top: 1rem;
-            padding: 0 60px;
         }
 
         .carousel-track-container {
@@ -659,7 +657,7 @@
             flex: 0 0 calc(33.333% - 1.333rem);
             background: var(--bg-card);
             border: 1px solid var(--line);
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: border-color 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             display: flex;
             flex-direction: column;
             border-radius: 4px;
@@ -670,66 +668,75 @@
             border-color: var(--ink);
         }
 
+        /* ---- Reel media: portrait frame + blurred backdrop fill ---- */
         .slide-media {
             width: 100%;
-            aspect-ratio: 16 / 10;
-            background: var(--bg-soft);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            aspect-ratio: 9 / 16;
+            max-height: 520px;
+            background: #0d0d0d;
             position: relative;
-            cursor: pointer;
             overflow: hidden;
         }
 
-        .slide-media video {
+        /* the blurred duplicate video sits behind and fills the frame */
+        .slide-media .video-blur {
+            position: absolute;
+            inset: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: block;
-            filter: grayscale(100%);
-            transition: filter 0.5s ease;
+            filter: blur(28px) saturate(1.2) brightness(0.55);
+            transform: scale(1.15);
+            z-index: 1;
+            pointer-events: none;
+            background: #0d0d0d;
         }
 
-        .carousel-slide:hover .slide-media video {
-            filter: grayscale(0%);
-        }
-
-        /* ========== INSTAGRAM EMBED ========== */
-        .slide-media.insta-embed-container {
-            position: relative;
-            cursor: default;
-            background: var(--bg-card);
-        }
-
-        .slide-media.insta-embed-container iframe {
+        /* the actual video sits on top, centred, and keeps its own aspect ratio */
+        .slide-media .video-main {
             position: absolute;
             inset: 0;
             width: 100%;
             height: 100%;
-            border: 0;
-            background: var(--bg-card);
-            display: block;
+            object-fit: contain;
+            z-index: 2;
+            background: transparent;
         }
 
-        .slide-media .play-overlay {
+        /* small IG link bottom-right */
+        .ig-link {
             position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.05);
+            bottom: 0.85rem;
+            right: 0.85rem;
+            z-index: 3;
+            background: rgba(17, 17, 17, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            padding: 0.4rem 0.85rem;
+            border-radius: 100px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            transition: opacity 0.3s ease;
-            color: var(--ink);
-            font-size: 2.5rem;
-            opacity: 0.6;
-            pointer-events: none;
+            gap: 0.4rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
         }
 
-        .slide-media:hover .play-overlay {
-            opacity: 1;
+        .ig-link:hover {
+            background: #fff;
+            color: #111;
+            border-color: #fff;
         }
 
+        .ig-link i {
+            font-size: 0.7rem;
+        }
+
+        /* ---- Slide info ---- */
         .slide-info {
             padding: 1.6rem 1.6rem 1.8rem;
             flex: 1;
@@ -752,83 +759,20 @@
             color: var(--ink-muted);
             font-size: 0.78rem;
             font-weight: 400;
-            margin-bottom: 1rem;
+            margin-bottom: 0;
         }
 
-        .slide-metrics {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-top: auto;
-            padding-top: 1rem;
-            border-top: 1px solid var(--line);
-        }
-
-        .slide-metrics .metric {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            font-size: 0.72rem;
-            color: var(--ink-soft);
-            font-weight: 400;
-        }
-
-        .slide-metrics .metric i {
-            font-size: 0.7rem;
-            color: var(--ink-muted);
-        }
-
-        /* Instagram fallback link (for when embed fails to load) */
-        .insta-fallback {
-            position: absolute;
-            bottom: 0.8rem;
-            right: 0.8rem;
-            z-index: 3;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(6px);
-            color: var(--ink);
-            font-size: 0.7rem;
-            font-weight: 500;
-            padding: 0.35rem 0.8rem;
-            border-radius: 100px;
-            display: flex;
-            align-items: center;
-            gap: 0.35rem;
-            border: 1px solid var(--line);
-            transition: all 0.3s ease;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .insta-fallback:hover {
-            background: var(--ink);
-            color: var(--bg);
-            border-color: var(--ink);
-        }
-
-        .insta-fallback i {
-            font-size: 0.7rem;
-        }
-
-        /* Carousel Controls */
-        .carousel-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 2.5rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--line);
-        }
-
-        .carousel-arrows {
-            display: flex;
-            gap: 0.6rem;
-        }
-
+        /* ---- Edge arrow buttons ---- */
         .carousel-arrow {
-            width: 44px;
-            height: 44px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 52px;
+            height: 52px;
             border-radius: 50%;
-            background: transparent;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border: 1px solid var(--line);
             color: var(--ink);
             display: flex;
@@ -836,19 +780,40 @@
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
+            z-index: 20;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
 
         .carousel-arrow:hover {
             background: var(--ink);
             border-color: var(--ink);
             color: var(--bg);
+            transform: translateY(-50%) scale(1.08);
+            box-shadow: 0 6px 26px rgba(0, 0, 0, 0.16);
         }
 
+        .carousel-arrow:active {
+            transform: translateY(-50%) scale(0.98);
+        }
+
+        .carousel-arrow.prev {
+            left: 1.5rem;
+        }
+
+        .carousel-arrow.next {
+            right: 1.5rem;
+        }
+
+        /* Dots below */
         .carousel-dots {
             display: flex;
+            justify-content: center;
             gap: 0.5rem;
             align-items: center;
+            margin-top: 2.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--line);
         }
 
         .carousel-dot {
@@ -1083,6 +1048,20 @@
             .services-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+
+            .carousel-arrow {
+                width: 46px;
+                height: 46px;
+                font-size: 0.85rem;
+            }
+
+            .carousel-arrow.prev {
+                left: 1rem;
+            }
+
+            .carousel-arrow.next {
+                right: 1rem;
+            }
         }
 
         @media screen and (max-width: 900px) {
@@ -1166,10 +1145,18 @@
                 flex: 0 0 100%;
             }
 
-            .carousel-controls {
-                flex-direction: column;
-                gap: 1.5rem;
-                align-items: flex-start;
+            .carousel-arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 0.8rem;
+            }
+
+            .carousel-arrow.prev {
+                left: 0.5rem;
+            }
+
+            .carousel-arrow.next {
+                right: 0.5rem;
             }
 
             .form-row {
@@ -1229,13 +1216,18 @@
                 font-size: 4rem;
             }
 
-            .carousel-wrapper {
-                padding: 0 20px;
+            .carousel-arrow {
+                width: 36px;
+                height: 36px;
+                font-size: 0.75rem;
             }
 
-            .carousel-arrow {
-                width: 38px;
-                height: 38px;
+            .carousel-arrow.prev {
+                left: 0.25rem;
+            }
+
+            .carousel-arrow.next {
+                right: 0.25rem;
             }
 
             .intro-quote {
@@ -1388,149 +1380,166 @@
             <div class="container">
                 <span class="section-label">Portfolio</span>
                 <h2 class="section-title">Featured work</h2>
-                <p class="section-desc">A curated selection of recent projects — videos, reels, and social campaigns.
-                </p>
+                <p class="section-desc">A curated selection of recent reels and social campaigns.</p>
 
                 <div class="carousel-wrapper">
+                    <button class="carousel-arrow prev" id="prevBtn" aria-label="Previous reel">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <button class="carousel-arrow next" id="nextBtn" aria-label="Next reel">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+
                     <div class="carousel-track-container">
                         <div class="carousel-track" id="carouselTrack">
 
-                            <!-- SLIDE 1: Uploaded video -->
+                            <!-- SLIDE 1 -->
                             <article class="carousel-slide">
-                                <div class="slide-media" onclick="togglePlay(this)">
-                                    <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline
-                                        preload="metadata" aria-label="Healthcare awareness reel preview"></video>
-                                    <div class="play-overlay"><i class="fas fa-play"></i></div>
-                                </div>
-                                <div class="slide-info">
-                                    <h3>Healthcare Awareness Reel</h3>
-                                    <p class="meta">Script &amp; Edit · Jeena Sikho</p>
-                                    <div class="slide-metrics">
-                                        <span class="metric"><i class="fas fa-eye"></i> 42.3K</span>
-                                        <span class="metric"><i class="fas fa-heart"></i> 3.1K</span>
-                                        <span class="metric"><i class="fas fa-comment"></i> 184</span>
-                                    </div>
-                                </div>
-                            </article>
-
-                            <!-- SLIDE 2: Instagram embed -->
-                            <!-- Replace DYREwj3BJpC with your own reel shortcode -->
-                            <article class="carousel-slide">
-                                <div class="slide-media insta-embed-container">
-                                    <iframe src="https://www.instagram.com/reel/DYREwj3BJpC/embed"
-                                        title="Instagram reel: Brand Story" loading="lazy" allowtransparency="true"
-                                        allowfullscreen scrolling="no" frameborder="0"></iframe>
-                                    <a class="insta-fallback" href="https://www.instagram.com/reel/DYREwj3BJpC/"
+                                <div class="slide-media">
+                                    <video class="video-blur" src="v2.mp4" muted
+                                        loop playsinline preload="metadata" aria-hidden="true"></video>
+                                    <video class="video-main" src="v2.mp4" muted
+                                        loop playsinline preload="metadata" aria-label="Reel 01 preview"></video>
+                                    <a class="ig-link" href="https://www.instagram.com/reel/DYREwj3BJpC/"
                                         target="_blank" rel="noopener noreferrer">
-                                        <i class="fab fa-instagram"></i> Open
+                                        <i class="fab fa-instagram"></i> IG
                                     </a>
                                 </div>
                                 <div class="slide-info">
-                                    <h3>Brand Story : Startup</h3>
-                                    <p class="meta">Social campaign · 1M+ reach</p>
-                                    <div class="slide-metrics">
-                                        <span class="metric"><i class="fas fa-eye"></i> 1.2M</span>
-                                        <span class="metric"><i class="fas fa-heart"></i> 89K</span>
-                                        <span class="metric"><i class="fas fa-comment"></i> 2.4K</span>
-                                    </div>
+                                    <h3>Reel · 01</h3>
+                                    <p class="meta">Instagram · @the_anshikaverma</p>
                                 </div>
                             </article>
 
-                            <!-- SLIDE 3: Uploaded video -->
+                            <!-- SLIDE 2 -->
                             <article class="carousel-slide">
-                                <div class="slide-media" onclick="togglePlay(this)">
-                                    <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline
-                                        preload="metadata" aria-label="Product explainer preview"></video>
-                                    <div class="play-overlay"><i class="fas fa-play"></i></div>
-                                </div>
-                                <div class="slide-info">
-                                    <h3>Product Explainer</h3>
-                                    <p class="meta">Script, animation &amp; voiceover</p>
-                                    <div class="slide-metrics">
-                                        <span class="metric"><i class="fas fa-eye"></i> 28.7K</span>
-                                        <span class="metric"><i class="fas fa-heart"></i> 2.2K</span>
-                                        <span class="metric"><i class="fas fa-comment"></i> 96</span>
-                                    </div>
-                                </div>
-                            </article>
-
-                            <!-- SLIDE 4: Instagram embed -->
-                            <article class="carousel-slide">
-                                <div class="slide-media insta-embed-container">
-                                    <iframe src="https://www.instagram.com/reel/DYREwj3BJpC/embed"
-                                        title="Instagram reel: Behind the scenes" loading="lazy"
-                                        allowtransparency="true" allowfullscreen scrolling="no"
-                                        frameborder="0"></iframe>
-                                    <a class="insta-fallback" href="https://www.instagram.com/reel/DYREwj3BJpC/"
+                                <div class="slide-media">
+                                    <video class="video-blur" src="v6.mp4" muted
+                                        loop playsinline preload="metadata" aria-hidden="true"></video>
+                                    <video class="video-main" src="v6.mp4" muted
+                                        loop playsinline preload="metadata" aria-label="Reel 02 preview"></video>
+                                    <a class="ig-link" href="https://www.instagram.com/reel/DW5raJYEzeB/"
                                         target="_blank" rel="noopener noreferrer">
-                                        <i class="fab fa-instagram"></i> Open
+                                        <i class="fab fa-instagram"></i> IG
                                     </a>
                                 </div>
                                 <div class="slide-info">
-                                    <h3>Behind the Scenes</h3>
-                                    <p class="meta">Creative process · Jeena Sikho</p>
-                                    <div class="slide-metrics">
-                                        <span class="metric"><i class="fas fa-eye"></i> 8.7K</span>
-                                        <span class="metric"><i class="fas fa-heart"></i> 942</span>
-                                        <span class="metric"><i class="fas fa-comment"></i> 47</span>
-                                    </div>
+                                    <h3>Reel · 02</h3>
+                                    <p class="meta">Instagram · @the_anshikaverma</p>
                                 </div>
                             </article>
 
-                            <!-- SLIDE 5: Uploaded video -->
+                            <!-- SLIDE 3 -->
                             <article class="carousel-slide">
-                                <div class="slide-media" onclick="togglePlay(this)">
-                                    <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline
-                                        preload="metadata" aria-label="Testimonial reel preview"></video>
-                                    <div class="play-overlay"><i class="fas fa-play"></i></div>
-                                </div>
-                                <div class="slide-info">
-                                    <h3>Testimonial Reel</h3>
-                                    <p class="meta">Client stories · social campaign</p>
-                                    <div class="slide-metrics">
-                                        <span class="metric"><i class="fas fa-eye"></i> 15.2K</span>
-                                        <span class="metric"><i class="fas fa-heart"></i> 1.4K</span>
-                                        <span class="metric"><i class="fas fa-comment"></i> 62</span>
-                                    </div>
-                                </div>
-                            </article>
-
-                            <!-- SLIDE 6: Instagram embed -->
-                            <article class="carousel-slide">
-                                <div class="slide-media insta-embed-container">
-                                    <iframe src="https://www.instagram.com/reel/DYREwj3BJpC/embed"
-                                        title="Instagram reel: Carousel tips" loading="lazy" allowtransparency="true"
-                                        allowfullscreen scrolling="no" frameborder="0"></iframe>
-                                    <a class="insta-fallback" href="https://www.instagram.com/reel/DYREwj3BJpC/"
+                                <div class="slide-media">
+                                    <video class="video-blur" src="v8.mp4" muted
+                                        loop playsinline preload="metadata" aria-hidden="true"></video>
+                                    <video class="video-main" src="v8.mp4" muted
+                                        loop playsinline preload="metadata" aria-label="Reel 03 preview"></video>
+                                    <a class="ig-link" href="https://www.instagram.com/reel/DWuJBJUk4Bu/"
                                         target="_blank" rel="noopener noreferrer">
-                                        <i class="fab fa-instagram"></i> Open
+                                        <i class="fab fa-instagram"></i> IG
                                     </a>
                                 </div>
                                 <div class="slide-info">
-                                    <h3>Carousel Post · Tips</h3>
-                                    <p class="meta">Content strategy series</p>
-                                    <div class="slide-metrics">
-                                        <span class="metric"><i class="fas fa-eye"></i> 5.2K</span>
-                                        <span class="metric"><i class="fas fa-heart"></i> 618</span>
-                                        <span class="metric"><i class="fas fa-comment"></i> 31</span>
-                                    </div>
+                                    <h3>Reel · 03</h3>
+                                    <p class="meta">Instagram · @the_anshikaverma</p>
+                                </div>
+                            </article>
+
+                            <!-- SLIDE 4 -->
+                            <article class="carousel-slide">
+                                <div class="slide-media">
+                                    <video class="video-blur" src="v4.mp4" muted
+                                        loop playsinline preload="metadata" aria-hidden="true"></video>
+                                    <video class="video-main" src="v4.mp4" muted
+                                        loop playsinline preload="metadata" aria-label="Reel 04 preview"></video>
+                                    <a class="ig-link" href="https://www.instagram.com/reel/DW9ih_lE2_E/"
+                                        target="_blank" rel="noopener noreferrer">
+                                        <i class="fab fa-instagram"></i> IG
+                                    </a>
+                                </div>
+                                <div class="slide-info">
+                                    <h3>Reel · 04</h3>
+                                    <p class="meta">Instagram · @the_anshikaverma</p>
+                                </div>
+                            </article>
+
+                            <!-- SLIDE 5 -->
+                            <article class="carousel-slide">
+                                <div class="slide-media">
+                                    <video class="video-blur" src="v5.mp4" muted
+                                        loop playsinline preload="metadata" aria-hidden="true"></video>
+                                    <video class="video-main" src="v5.mp4" muted
+                                        loop playsinline preload="metadata" aria-label="Reel 05 preview"></video>
+                                    <a class="ig-link" href="https://www.instagram.com/reel/DVMAqx_j4xw/"
+                                        target="_blank" rel="noopener noreferrer">
+                                        <i class="fab fa-instagram"></i> IG
+                                    </a>
+                                </div>
+                                <div class="slide-info">
+                                    <h3>Reel · 05</h3>
+                                    <p class="meta">Instagram · @the_anshikaverma</p>
+                                </div>
+                            </article>
+
+                            <!-- SLIDE 6 -->
+                            <article class="carousel-slide">
+                                <div class="slide-media">
+                                    <video class="video-blur" src="v7.mp4" muted
+                                        loop playsinline preload="metadata" aria-hidden="true"></video>
+                                    <video class="video-main" src="v7.mp4" muted
+                                        loop playsinline preload="metadata" aria-label="Reel 06 preview"></video>
+                                    <a class="ig-link" href="https://www.instagram.com/reel/DVGhyYsjyFA/"
+                                        target="_blank" rel="noopener noreferrer">
+                                        <i class="fab fa-instagram"></i> IG
+                                    </a>
+                                </div>
+                                <div class="slide-info">
+                                    <h3>Reel · 06</h3>
+                                    <p class="meta">Instagram · @the_anshikaverma</p>
+                                </div>
+                            </article>
+
+                            <!-- SLIDE 7 -->
+                            <article class="carousel-slide">
+                                <div class="slide-media">
+                                    <video class="video-blur" src="v1.mp4" muted
+                                        loop playsinline preload="metadata" aria-hidden="true"></video>
+                                    <video class="video-main" src="v1.mp4" muted
+                                        loop playsinline preload="metadata" aria-label="Reel 07 preview"></video>
+                                    <a class="ig-link" href="https://www.instagram.com/reel/DUsQUzRDMDp/"
+                                        target="_blank" rel="noopener noreferrer">
+                                        <i class="fab fa-instagram"></i> IG
+                                    </a>
+                                </div>
+                                <div class="slide-info">
+                                    <h3>Reel · 07</h3>
+                                    <p class="meta">Instagram · @the_anshikaverma</p>
+                                </div>
+                            </article>
+                            <!-- SLIDE 8 -->
+                            <article class="carousel-slide">
+                                <div class="slide-media">
+                                    <video class="video-blur" src="v8.mp4" muted
+                                        loop playsinline preload="metadata" aria-hidden="true"></video>
+                                    <video class="video-main" src="v8.mp4" muted
+                                        loop playsinline preload="metadata" aria-label="Reel 08 preview"></video>
+                                    <a class="ig-link" href="https://www.instagram.com/reel/DUsQUzRDMDp/"
+                                        target="_blank" rel="noopener noreferrer">
+                                        <i class="fab fa-instagram"></i> IG
+                                    </a>
+                                </div>
+                                <div class="slide-info">
+                                    <h3>Reel · 07</h3>
+                                    <p class="meta">Instagram · @the_anshikaverma</p>
                                 </div>
                             </article>
 
                         </div>
                     </div>
 
-                    <div class="carousel-controls">
-                        <div class="carousel-arrows">
-                            <button class="carousel-arrow" id="prevBtn" aria-label="Previous">
-                                <i class="fas fa-arrow-left"></i>
-                            </button>
-                            <button class="carousel-arrow" id="nextBtn" aria-label="Next">
-                                <i class="fas fa-arrow-right"></i>
-                            </button>
-                        </div>
-                        <div class="carousel-dots" id="carouselDots"></div>
-                    </div>
+                    <div class="carousel-dots" id="carouselDots"></div>
                 </div>
             </div>
         </section>
@@ -1598,10 +1607,10 @@
                             <i class="fas fa-phone"></i>
                             <span>+91 98765 43210</span>
                         </a>
-                        <a href="https://instagram.com/anshika.creates" target="_blank" rel="noopener"
+                        <a href="https://instagram.com/the_anshikaverma" target="_blank" rel="noopener"
                             class="contact-item">
                             <i class="fab fa-instagram"></i>
-                            <span>@anshika.creates</span>
+                            <span>@the_anshikaverma</span>
                         </a>
                         <a href="https://linkedin.com/in/anshika" target="_blank" rel="noopener" class="contact-item">
                             <i class="fab fa-linkedin"></i>
@@ -1730,6 +1739,7 @@
             }
             track.style.transform = `translateX(-${moveAmount}px)`;
             updateDots();
+            scheduleVideoSync();
         }
 
         function createDots() {
@@ -1805,39 +1815,66 @@
             createDots();
             updateCarousel(false);
             setTimeout(() => updateCarousel(true), 150);
-            bindVideoListeners();
         });
 
-        /* ========== VIDEO PLAY / PAUSE ========== */
-        function bindVideoListeners() {
-            document.querySelectorAll('.slide-media video').forEach(video => {
-                const overlay = video.parentElement.querySelector('.play-overlay');
-                if (!overlay || video.dataset.bound === '1') return;
-                video.dataset.bound = '1';
-                video.addEventListener('pause', () => { overlay.style.opacity = '0.6'; });
-                video.addEventListener('play', () => { overlay.style.opacity = '0'; });
-                video.addEventListener('ended', () => { overlay.style.opacity = '0.6'; });
+        /* ========== PLAY ONLY THE ACTIVE SLIDE'S VIDEO ========== */
+        function syncVideoPlayback() {
+            const activeIndex = ((currentIndex % originalCount) + originalCount) % originalCount;
+
+            allSlides.forEach((slide, i) => {
+                const mainVideo = slide.querySelector('.video-main');
+                const blurVideo = slide.querySelector('.video-blur');
+                if (!mainVideo) return;
+
+                const slideOriginalIndex = i % originalCount;
+                const shouldPlay = slideOriginalIndex === activeIndex;
+
+                if (shouldPlay) {
+                    const p1 = mainVideo.play();
+                    if (p1 && p1.catch) p1.catch(() => {});
+                    if (blurVideo) {
+                        const p2 = blurVideo.play();
+                        if (p2 && p2.catch) p2.catch(() => {});
+                    }
+                } else {
+                    mainVideo.pause();
+                    try { mainVideo.currentTime = 0; } catch (e) {}
+                    if (blurVideo) {
+                        blurVideo.pause();
+                        try { blurVideo.currentTime = 0; } catch (e) {}
+                    }
+                }
             });
         }
 
-        function togglePlay(mediaDiv) {
-            const video = mediaDiv.querySelector('video');
-            if (!video) return;
-            const overlay = mediaDiv.querySelector('.play-overlay');
-            if (video.paused) {
-                document.querySelectorAll('.slide-media video').forEach(v => {
-                    if (v !== video) {
-                        v.pause();
-                        const ov = v.parentElement.querySelector('.play-overlay');
-                        if (ov) ov.style.opacity = '0.6';
+        function scheduleVideoSync() {
+            clearTimeout(window._videoSyncTimer);
+            window._videoSyncTimer = setTimeout(syncVideoPlayback, 120);
+        }
+
+        // run on load, resize, and any carousel change
+        window.addEventListener('load', () => setTimeout(syncVideoPlayback, 500));
+        window.addEventListener('resize', () => scheduleVideoSync());
+
+        // also trigger when the Work section comes into view (in case nothing else has)
+        const workSection = document.getElementById('work');
+        if (workSection) {
+            const workObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        scheduleVideoSync();
+                    } else {
+                        // pause everything when Work scrolls out of view (saves CPU)
+                        allSlides.forEach(slide => {
+                            const mv = slide.querySelector('.video-main');
+                            const bv = slide.querySelector('.video-blur');
+                            if (mv) mv.pause();
+                            if (bv) bv.pause();
+                        });
                     }
                 });
-                video.play();
-                if (overlay) overlay.style.opacity = '0';
-            } else {
-                video.pause();
-                if (overlay) overlay.style.opacity = '0.6';
-            }
+            }, { threshold: 0.15 });
+            workObserver.observe(workSection);
         }
 
         /* ========== SMOOTH SCROLL ========== */
@@ -1856,8 +1893,6 @@
                 }
             });
         });
-
-        window.togglePlay = togglePlay;
     </script>
 </body>
 
